@@ -1,0 +1,245 @@
+import React, { useState, useEffect } from 'react';
+import 'react-phone-number-input/style.css';
+import '../../styles/AddEmployeeForm.css';
+import axios from 'axios';
+import { useHistory, useParams } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { PostDyanmicTable, PostGallaryImage, getBlogById, getColleges, getDyanmicTableById, postBlog, updateBlogs, updateDyanmicTable } from '../../redux/api';
+import LoadingPage from '../utils/LoadingPage';
+import LoadingComponent from '../utils/LoadingButton';
+import { SettingsBackupRestore } from '@mui/icons-material';
+import ColumnInput from './ColumnInput';
+import RowInput from './RowInput';
+
+
+const AddDynamicTable = () => {
+
+  const { id, tableid } = useParams()
+  const initialData = {
+    tableName: "",
+    collegeid: id,
+    description: "",
+    noOfColumns: "",
+    noOfRows: "",
+    columns: [],
+    rows: []
+  };
+  const [TableData, setTableData] = useState(initialData);
+  const [LoadingUi, setLoadingUi] = useState(false);
+  const [LoadingButton, setLoadingButton] = useState(false);
+  const [collegeData, setcollegeData] = useState([]);
+  const history = useHistory();
+
+  const handleChange = (e) => {
+    const { name } = e.target;
+    setTableData({ ...TableData, [name]: e.target.value });
+  };
+
+  // const handleinput2 = async () => {
+  //   try {
+  //     const formdata = new FormData()
+  //     formdata.append("file", GallaryData.image)
+  //     formdata.append("upload_preset", 'eduvisor')
+  //     const response = await axios.post(`https://api.cloudinary.com/v1_1/sinox-technology/image/upload`, formdata)
+  //     console.log(response)
+  //     return response?.data?.url
+
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+
+
+
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoadingButton(true)
+      await PostDyanmicTable(TableData)
+      history.push(`/colleges/${id}/table`);
+      setLoadingButton(false)
+    } catch (error) {
+      setLoadingButton(false)
+      console.log(error);
+    }
+  }
+
+
+  // edit
+
+
+  useEffect(() => {
+    blogById()
+    // fetchColleges()
+  }, [])
+  const blogById = async () => {
+    try {
+      setLoadingUi(true)
+      const response = await getDyanmicTableById(tableid)
+      setTableData(response?.data?.data)
+      setLoadingUi(false)
+    } catch (error) {
+      setLoadingUi(false)
+      console.log(error)
+    }
+  }
+
+  const handleUpdate = async () => {
+    try {
+      setLoadingButton(true)
+      const payload = { ...TableData, collegeId: id, tableId: TableData?._id }
+
+      await updateDyanmicTable(payload)
+      history.push(`/colleges/${id}/table`)
+      setLoadingButton(false)
+    } catch (error) {
+      setLoadingButton(false)
+      console.log(error)
+    }
+  }
+  const addColumns = () => {
+    const initialColumns = Array.from({ length: TableData?.noOfColumns }, () => ({ name: '', sequence: '', type: "" }));
+    setTableData({ ...TableData, columns: initialColumns });
+  }
+  const addRows = () => {
+    const initialObject = {};
+    const row = TableData?.columns?.map((item) => {
+      initialObject[item.name] = '';
+    })
+    const initialRows = Array.from({ length: TableData?.noOfRows }, () => (initialObject));
+    setTableData({ ...TableData, rows: initialRows })
+  }
+  const handleColumnChange = (e, columnIndex) => {
+    const { name, value } = e.target;
+    const updatedColumns = [...TableData?.columns];
+    updatedColumns[columnIndex][name] = value;
+    setTableData({ ...TableData, columns: updatedColumns });
+  };
+
+  const handleRowChange = (e, columnIndex) => {
+    const { name, value } = e.target;
+    const updatedColumns = [...TableData?.rows];
+    updatedColumns[0][name] = value;
+    console.log(updatedColumns[1])
+    setTableData({ ...TableData, rows: updatedColumns });
+  };
+
+
+
+
+  return (
+    <div className='addEmployee-container'>
+      {
+        LoadingUi ? <LoadingPage /> :
+          <div className='addEmployee-personalDetails'>
+            <div className='addEmployee-alignRow'>
+
+              <div className='addEmployee-inputFieldDiv'>
+                <label className='addEmployee-inputLabel'>Table Name </label>
+                <input
+                  type='text'
+                  name='tableName'
+                  placeholder='Table Name'
+                  value={TableData?.tableName}
+                  className='addEmployee-inputField'
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className='addEmployee-inputFieldDiv'>
+                <label className='addEmployee-inputLabel '>Description </label>
+                <input
+                  type='text'
+                  name='description'
+                  placeholder='Description'
+                  value={TableData?.description}
+                  className='addEmployee-inputField'
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+
+            <div className='addEmployee-alignRow d-flex mt-4 align-items-center' >
+
+              <div className='addEmployee-inputFieldDiv mt-0'>
+                <label className='addEmployee-inputLabel'>No of Columns </label>
+                <input
+                  type='number'
+                  name='noOfColumns'
+                  placeholder='No Of Columns'
+                  value={TableData?.noOfColumns}
+                  className='addEmployee-inputField'
+                  onChange={handleChange}
+                />
+              </div>
+              <button className='addEmployee-submitDetailBtn w-25' onClick={addColumns}>Add Columns</button>
+            </div>
+
+
+            {
+              TableData?.columns?.map((item, index) => {
+                return <ColumnInput data={item} key={index} index={index} handleColumnChange={handleColumnChange} />
+              })
+            }
+
+
+            <div className='addEmployee-alignRow d-flex mt-4 align-items-center'>
+
+              <div className='addEmployee-inputFieldDiv mt-0'>
+                <label className='addEmployee-inputLabel'>No of Rows</label>
+                <input
+                  type='number'
+                  name='noOfRows'
+                  placeholder='No Of Rows'
+                  value={TableData?.noOfRows}
+                  className='addEmployee-inputField'
+                  onChange={handleChange}
+                />
+              </div>
+              <button className='addEmployee-submitDetailBtn w-25' onClick={addRows}>Add Rows</button>
+            </div>
+
+            {
+              TableData?.rows?.map((item, index) => {
+                return <RowInput TableData={TableData} data={item} key={index} id={index} handleRowChange={handleRowChange} param={id} />
+              })
+            }
+
+            <div className='addEmployee-submitDetailDiv'>
+              {
+                !!tableid ? <button
+                  className='addEmployee-submitDetailBtn'
+                  onClick={handleUpdate}
+
+                >
+                  Update
+                  {
+                    LoadingButton &&
+                    <LoadingComponent />
+                  }
+                </button> :
+                  <button
+                    className='addEmployee-submitDetailBtn'
+                    onClick={handlesubmit}
+                  >
+                    Submit
+                    {
+                      LoadingButton &&
+                      <LoadingComponent />
+                    }
+                  </button>
+              }
+            </div>
+          </div >
+      }
+    </div >
+  );
+};
+
+
+
+
+export default AddDynamicTable;
