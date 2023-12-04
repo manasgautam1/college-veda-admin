@@ -16,18 +16,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import home from "../images/home.svg";
-import homeActive from "../images/homeActive.svg";
 import artist from "../images/artist.svg";
 import artistActive from "../images/artistActive.svg";
 import employee from "../images/employee.svg";
 import employeeActive from "../images/employeeActive.svg";
 import user from "../images/user.svg";
 import userActive from "../images/userActive.svg";
-import payment from "../images/payment.svg";
-import paymentActive from "../images/paymentActive.svg";
 import useStyles from "../styles/NavSidebar";
-import logo from "../images/logo-3.png";
+import logo from "../images/brand-logo.webp";
+
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -67,7 +64,7 @@ const Drawer = styled(MuiDrawer, {
     }),
     boxSizing: "border-box",
     fontFamily: "Montserrat",
-    backgroundColor: "#007A70",
+    backgroundColor: "#00a99d",
     color: "#C4C4C4",
     ...(!open && {
       overflowX: "hidden",
@@ -382,7 +379,6 @@ const NavSidebar = (props) => {
               </ListItemIcon>
               <ListItemText primary="Home Showcase" />
             </ListItem>
-
 
             <ListItem
               button
