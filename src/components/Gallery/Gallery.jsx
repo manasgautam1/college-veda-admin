@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import LoadingPage from '../utils/LoadingPage';
 import addIcon from '../../images/addIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import axios from 'axios';
 import '../../styles/EmployeePage.css';
-import { deleteBlogs, deleteDyanmicTable, deleteGallaryImage, getBlogs, getCollegeById, getDyanmicTable, getGallaryImages } from '../../redux/api';
-import DTTable from './AllDynamicTables/DTTable';
+import { deleteBlogs, deleteGallaryImage, getBlogs, getGallaryImages } from '../../redux/api';
+import AGTable from './AllGallery/AGTable';
 
-const DynamicTables = () => {
+const Gallery = () => {
   const history = useHistory();
   const [allblogData, setallblogData] = useState([])
   const [loading, setLoading] = useState(false);
   const [searchInput, setsearchInput] = useState('');
   const [filterData, setfilterData] = useState([])
-  const { id } = useParams()
 
   const fetchblogList = async () => {
     setLoading(true);
     try {
-      const call1 = await getCollegeById(id);
-      setallblogData(call1?.data?.data?.tables)
-      console.log(call1)
+      const call1 = await getGallaryImages();
+      setallblogData(call1?.data?.data)
       // setallblogData(call1.data.allBlogs)
       setLoading(false);
     } catch (error) {
@@ -46,16 +44,11 @@ const DynamicTables = () => {
     }
   }
 
-  const deleteBlog = async (tableId, index) => {
+  const deleteBlog = async (id) => {
     try {
-      const newarr = allblogData.filter(item => item._id !== tableId)
+      const newarr = allblogData.filter(item => item._id !== id)
       setallblogData(newarr)
-      const payload = {
-        collegeId: id,
-        tableId,
-        index
-      }
-      await deleteDyanmicTable(payload)
+      await deleteGallaryImage(id)
     } catch (error) {
       console.log(error)
     }
@@ -82,24 +75,22 @@ const DynamicTables = () => {
               <div className='employee-addEmployeeDiv'>
                 <button
                   className='employee-addBtn'
-                  onClick={() => history.push(`/colleges/${id}/table/add`)}
+                  onClick={() => history.push('/gallary/add')}
                 >
                   <img src={addIcon} alt='add' className='employee-addIcon' />
-                  <span>Add Table</span>
+                  <span>Add Gallery Image</span>
                 </button>
               </div>
             </div>
             <div className='employee-tableSection'>
               {(searchInput.length > 1) ? (
-                <DTTable
+                <AGTable
                   blogData={filterData}
-                  collegeId={id}
                   deleteBlog={deleteBlog}
                 />
               ) : (
-                <DTTable
+                <AGTable
                   blogData={allblogData}
-                  collegeId={id}
                   deleteBlog={deleteBlog}
                 />
               )
@@ -112,4 +103,4 @@ const DynamicTables = () => {
   );
 };
 
-export default DynamicTables;
+export default Gallery;

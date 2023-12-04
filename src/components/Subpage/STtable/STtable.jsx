@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../../styles/ArtistsTable.css';
-import SingleDTRow from './SingleDTRow';
-import { useParams } from 'react-router';
+import OneSttable from './OneStTable';
 
-const DTTable = (prop) => {
+const Sttable = (prop) => {
+
   return (
     <div className='table-wrapper' id='#scrollBar'>
 
@@ -11,35 +11,32 @@ const DTTable = (prop) => {
         <thead>
           <tr>
             <th>S no.</th>
-            <th>Table Name</th>
-            <th>Description</th>
-            <th>Columns</th>
-            <th>Rows</th>
+            <th>Title</th>
+            <th>Course</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {
             prop?.blogData?.map((blog, ind) => {
-              return <SingleDTRow
+              return <OneSttable
                 key={ind}
                 index={ind}
                 id={blog._id}
-                collegeId={prop?.collegeId}
-                tableName={blog.tableName}
-                description={blog.description}
-                columns={blog?.columns?.length}
-                rows={blog?.rows?.length}
+                body={blog.body}
                 deleteBlog={prop.deleteBlog}
-                sequence={blog.sequence}
+                author={blog.message}
+                title={blog.title}
+                course={blog.course}
+
               />
 
             })
           }
         </tbody>
       </table>
-    </div>
+    </div >
   );
 };
 
-export default DTTable;
+export default Sttable;

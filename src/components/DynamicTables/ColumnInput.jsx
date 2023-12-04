@@ -33,7 +33,7 @@ const ColumnInput = ({ data, index, handleColumnChange }) => {
 
           />
         </div>
-        <div className='addEmployee-inputFieldDiv mt-0'>
+        {/* <div className='addEmployee-inputFieldDiv mt-0'>
           <label className='addEmployee-inputLabel'>type </label>
           <select className='addArtist-selectField' name="type" id="" onChange={(e) => handleColumnChange(e, index)}>
             <option selected>{!!data?.type ? data?.type : 'Select a type'}</option>
@@ -42,7 +42,7 @@ const ColumnInput = ({ data, index, handleColumnChange }) => {
             <option value="text">Email</option>
             <option value="date">Date</option>
           </select>
-        </div>
+        </div> */}
       </div>
     </>
   );

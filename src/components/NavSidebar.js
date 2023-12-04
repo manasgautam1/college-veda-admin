@@ -27,7 +27,7 @@ import userActive from "../images/userActive.svg";
 import payment from "../images/payment.svg";
 import paymentActive from "../images/paymentActive.svg";
 import useStyles from "../styles/NavSidebar";
-import logo from "../images/brand-logo.webp";
+import logo from "../images/logo-3.png";
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -67,7 +67,7 @@ const Drawer = styled(MuiDrawer, {
     }),
     boxSizing: "border-box",
     fontFamily: "Montserrat",
-    backgroundColor: "#00a99d",
+    backgroundColor: "#007A70",
     color: "#C4C4C4",
     ...(!open && {
       overflowX: "hidden",
@@ -340,6 +340,29 @@ const NavSidebar = (props) => {
             <ListItem
               button
               className={
+                props.location.pathname.includes("/gallary")
+                  ? classes.selectedList
+                  : ""
+              }
+              onClick={() => history.push("/gallary")}
+            >
+              <ListItemIcon>
+                {props.location.pathname.includes("/gallary") ? (
+                  <img
+                    src={userActive}
+                    className={classes.iconColor}
+                    alt="Gallary"
+                  />
+                ) : (
+                  <img src={user} className={classes.iconColor} alt="users" />
+                )}
+              </ListItemIcon>
+              <ListItemText primary="Gallery" />
+            </ListItem>
+
+            <ListItem
+              button
+              className={
                 props.location.pathname.includes("/home-showcase")
                   ? classes.selectedList
                   : ""
@@ -360,6 +383,29 @@ const NavSidebar = (props) => {
               <ListItemText primary="Home Showcase" />
             </ListItem>
 
+
+            <ListItem
+              button
+              className={
+                props.location.pathname.includes("/subpage")
+                  ? classes.selectedList
+                  : ""
+              }
+              onClick={() => history.push("/subpage")}
+            >
+              <ListItemIcon>
+                {props.location.pathname.includes("/subpage") ? (
+                  <img
+                    src={userActive}
+                    className={classes.iconColor}
+                    alt="Subpage"
+                  />
+                ) : (
+                  <img src={user} className={classes.iconColor} alt="users" />
+                )}
+              </ListItemIcon>
+              <ListItemText primary="Subpage" />
+            </ListItem>
             {/* <ListItem
               button
               className={

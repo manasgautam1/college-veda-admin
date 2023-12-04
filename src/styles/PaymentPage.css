@@ -15,7 +15,7 @@
 .payment-searchDiv {
   width: 65%;
   padding: 8px 15px;
-  border: 2px solid #00a99d;
+  border: 2px solid #007A70;
   border-radius: 31px;
   display: flex;
   flex-direction: row;
@@ -39,16 +39,16 @@
   font-family: Montserrat;
   font-weight: 500;
   font-size: 16px;
-  color: #00a99d;
+  color: #007A70;
 }
 
 #searchInput:before {
-  content: url("../images/searchIcon.svg");
+  content: url('../images/searchIcon.svg');
   padding-right: 10px;
 }
 
 .payment-searchInput::placeholder {
-  color: #00a99d;
+  color: #007A70;
   font-family: Montserrat;
   font-weight: 500;
   font-size: 16px;
@@ -62,7 +62,7 @@
   justify-content: center;
   align-items: center;
   outline: none;
-  background: #00a99d;
+  background: #007A70;
   border: none;
   border-radius: 31px;
   padding: 8px 10px;
@@ -96,7 +96,7 @@
   background-color: transparent;
   font-weight: 500;
   font-size: 16px;
-  color: #00a99d;
+  color: #007A70;
   cursor: pointer;
 }
 
@@ -106,12 +106,12 @@
 
 .payment-blockBtn {
   padding: 2px 15px;
-  border: 2px solid #00a99d;
+  border: 2px solid #007A70;
   border-radius: 31px;
   background-color: transparent;
   font-weight: 500;
   font-size: 14px;
-  color: #00a99d;
+  color: #007A70;
   outline: none;
   cursor: pointer;
 }

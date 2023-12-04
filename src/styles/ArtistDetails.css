@@ -82,7 +82,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #00a99d;
+  background-color: #007A70;
   color: #fff;
   width: 45%;
   padding: 4px;
@@ -171,8 +171,8 @@
 }
 
 .block {
-  border: 2px solid #00a99d;
-  color: #00a99d;
+  border: 2px solid #007A70;
+  color: #007A70;
   margin-right: 10px;
 }
 
@@ -207,12 +207,10 @@
 }
 
 .artistDetails-incomeCard {
-  background: linear-gradient(
-    75.72deg,
-    #05478a 4.63%,
-    #73bcf8 106.33%,
-    #05478a 106.92%
-  );
+  background: linear-gradient(75.72deg,
+      #05478a 4.63%,
+      #73bcf8 106.33%,
+      #05478a 106.92%);
   box-shadow: 4px 4px 4px rgba(4, 97, 182, 0.15),
     -4px 4px 4px rgba(109, 92, 252, 0.15);
   border-radius: 16px;

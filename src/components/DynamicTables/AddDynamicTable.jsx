@@ -108,8 +108,17 @@ const AddDynamicTable = () => {
     const row = TableData?.columns?.map((item) => {
       initialObject[item.name] = '';
     })
-    const initialRows = Array.from({ length: TableData?.noOfRows }, () => (initialObject));
-    setTableData({ ...TableData, rows: initialRows })
+
+
+    // const initialRows = Array.from({ length: 1 }, () => (initialObject));
+    setTableData({ ...TableData, rows: [...TableData?.rows, initialObject] })
+  }
+
+  const removeRow = (e, index) => {
+    e.preventDefault()
+    let data = [...TableData?.rows];
+    data.splice(index, 1);
+    setTableData({ ...TableData, rows: data });
   }
   const handleColumnChange = (e, columnIndex) => {
     const { name, value } = e.target;
@@ -121,11 +130,11 @@ const AddDynamicTable = () => {
   const handleRowChange = (e, columnIndex) => {
     const { name, value } = e.target;
     const updatedColumns = [...TableData?.rows];
-    updatedColumns[0][name] = value;
-    console.log(updatedColumns[1])
+    updatedColumns[columnIndex][name] = value;
     setTableData({ ...TableData, rows: updatedColumns });
   };
 
+  console.log(TableData)
 
 
 
@@ -162,6 +171,7 @@ const AddDynamicTable = () => {
             </div>
 
 
+            <h5 className='mt-4' style={{ fontWeight: "800" }}>Columns</h5>
             <div className='addEmployee-alignRow d-flex mt-4 align-items-center' >
 
               <div className='addEmployee-inputFieldDiv mt-0'>
@@ -185,10 +195,15 @@ const AddDynamicTable = () => {
               })
             }
 
+            <h5 className='mt-4' style={{ fontWeight: "800" }}>Rows</h5>
+            {
+              TableData?.rows?.map((item, index) => {
+                return <RowInput TableData={TableData} data={item} key={index} id={index} removeRow={removeRow} handleRowChange={handleRowChange} param={id} />
+              })
+            }
+            <div className='addEmployee-alignRow d-flex mt-4 align-items-center justify-content-end'>
 
-            <div className='addEmployee-alignRow d-flex mt-4 align-items-center'>
-
-              <div className='addEmployee-inputFieldDiv mt-0'>
+              {/* <div className='addEmployee-inputFieldDiv mt-0'>
                 <label className='addEmployee-inputLabel'>No of Rows</label>
                 <input
                   type='number'
@@ -198,15 +213,38 @@ const AddDynamicTable = () => {
                   className='addEmployee-inputField'
                   onChange={handleChange}
                 />
-              </div>
+              </div> */}
               <button className='addEmployee-submitDetailBtn w-25' onClick={addRows}>Add Rows</button>
             </div>
 
-            {
-              TableData?.rows?.map((item, index) => {
-                return <RowInput TableData={TableData} data={item} key={index} id={index} handleRowChange={handleRowChange} param={id} />
-              })
-            }
+
+            <div className='mt-4'>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    {
+                      TableData?.columns?.map((item, index) => {
+                        return <th>{item?.name}</th>
+                      })
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    TableData?.rows?.map((row, index) => {
+                      return <tr>
+                        {TableData?.columns.map((column, index2) => {
+                          return <td>{row[column?.name]}</td>
+                        })}
+                        {/* <td>{item.[`${TableData?.column?.filter((item,index)=>)}`]}</td> */}
+                      </tr>
+                    })
+                  }
+                </tbody>
+              </table>
+            </div>
+
+
 
             <div className='addEmployee-submitDetailDiv'>
               {

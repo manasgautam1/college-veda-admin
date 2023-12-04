@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { PostGallaryImage, PostShowCaseImage, getBlogById, postBlog, updateBlogs } from '../../redux/api';
+import { PostGallaryImage, getBlogById, postBlog, updateBlogs } from '../../redux/api';
 import LoadingPage from '../utils/LoadingPage';
 import LoadingComponent from '../utils/LoadingButton';
 
@@ -14,7 +14,7 @@ const initialData = {
   image: ""
 };
 
-const AddShowcase = () => {
+const AddGallary = () => {
 
   const [GallaryData, setGallaryData] = useState(initialData);
   const [LoadingUi, setLoadingUi] = useState(false);
@@ -48,8 +48,8 @@ const AddShowcase = () => {
     try {
       setLoadingButton(true)
       const url = await handleinput2()
-      await PostShowCaseImage({ sequence: GallaryData.sequence, image: url })
-      history.push('/gallary');
+      await PostGallaryImage({ sequence: GallaryData.sequence, image: url })
+      history.push('/home-showcase');
       setLoadingButton(false)
     } catch (error) {
       setLoadingButton(false)
@@ -164,4 +164,4 @@ const AddShowcase = () => {
 
 
 
-export default AddShowcase;
+export default AddGallary;

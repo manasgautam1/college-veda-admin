@@ -1,8 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 
-const RowInput = ({ data, id, handleRowChange, TableData, param }) => {
-  console.log(data)
+const RowInput = ({ data, id, handleRowChange, TableData, param, removeRow }) => {
   const noOfFields = Object.keys(data)
   const values = Object.values(data)
 
@@ -29,6 +28,7 @@ const RowInput = ({ data, id, handleRowChange, TableData, param }) => {
           })
         }
 
+        <button onClick={(e) => removeRow(e, id)}>X</button>
       </div>
     </>
   );
