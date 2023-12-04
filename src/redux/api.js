@@ -2,8 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const API = axios.create({
-  // baseURL: "https://college-veda-backend.onrender.com/api",
-  baseURL: "http://localhost:8080/api",
+  baseURL: "https://college-veda-backend.onrender.com/api",
+  // baseURL: "http://localhost:8080/api",
 });
 
 API.interceptors.request.use((req) => {
