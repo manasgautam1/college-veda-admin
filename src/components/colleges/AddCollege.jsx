@@ -463,6 +463,25 @@ const AddCollege = () => {
                       className="addArtist-inputField"
                     />
                   </div>
+                  <div className="addArtist-inputFieldDiv">
+                    <label className="addArtist-inputLabel">College Type</label>
+                    <select
+                      className="addArtist-selectField"
+                      name="collegeType"
+                      // value={universityData?.university}
+                      required
+                      // disabled={universityData?.university}
+                      // id={universityData?.state?.length ? "" : "red-border"}
+                      placeholder="Select A State"
+                      onChange={handleChange}
+                    >
+                      <option style={{ color: "red" }} value="">
+                        Select college type
+                      </option>
+                      <option value="Government">Government</option>
+                      <option value="Private">Private</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="addArtist-alignRow">
                   <div className="addArtist-inputFieldDiv w-100">
