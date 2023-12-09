@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const API = axios.create({
-  baseURL: "https://college-veda-backend.onrender.com/api",
+  baseURL: "https://strange-sweater-lamb.cyclic.app/api",
   // baseURL: "http://localhost:8080/api",
 });
 
