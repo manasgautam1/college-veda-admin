@@ -5,7 +5,11 @@ import axios from "axios";
 import filterIcon from "../../images/filterIcon.svg";
 import searchIcon from "../../images/searchIcon.svg";
 import LoadingPage from "../utils/LoadingPage";
-import { deleteCollege, getColleges, getUniversity } from "../../redux/api";
+import {
+  deleteCollege as DeleteCollege,
+  getColleges,
+  getUniversity,
+} from "../../redux/api";
 
 import "../../styles/ArtistPage.css";
 import CollegeTable from "./CTable/CollegeTable";
@@ -53,7 +57,7 @@ const College = () => {
     try {
       const newarr = universityData?.filter((item) => item._id !== id);
       setuniversityData(newarr);
-      await deleteCollege(id);
+      await DeleteCollege(id);
     } catch (error) {
       console.log(error);
     }
