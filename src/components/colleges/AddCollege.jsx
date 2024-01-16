@@ -544,7 +544,7 @@ const AddCollege = () => {
                         Add Images
                       </button>
                     </div>
-                    {universityData?.gallery.map((item, index) => {
+                    {universityData?.gallery?.map((item, index) => {
                       return (
                         <>
                           <div className="mb-3 w-100 mt-3 d-flex justify-content-between align-items-center">
