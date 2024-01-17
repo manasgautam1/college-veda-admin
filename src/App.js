@@ -23,13 +23,15 @@ import Testimonial from "./components/Testimonials/Testimonial";
 import AddTestimonial from "./components/Testimonials/AddTestimonial";
 import Review from "./components/colleges/Review/Review";
 import Gallery from "./components/Gallery/Gallery";
-import AddGallary from "./components/Gallery/AddGallery";
+import AddGallery from "./components/Gallery/AddGallery";
 import Showcase from "./components/Showcase/Showcase";
 import AddShowcase from "./components/Showcase/AddShowcase";
 import DynamicTables from "./components/DynamicTables/DynamicTablex";
 import AddDynamicTable from "./components/DynamicTables/AddDynamicTable";
 import Subpage from "./components/Subpage/Subpage";
 import AddSubpage from "./components/Subpage/AddSubpage";
+import StatePage from "./components/States/StatePage";
+import AddStateForm from "./components/States/AddStateForm";
 
 export const history = createHistory();
 const App = () => {
@@ -62,6 +64,9 @@ const App = () => {
             exact
             component={Editcourse}
           />
+          <Route path="/states" exact component={StatePage} />
+          <Route path="/states/add" exact component={AddStateForm} />
+          <Route path="/states/edit/:id" exact component={AddStateForm} />
           <Route path="/blogs" exact component={BlogPage} />
           <Route path="/blog/add" exact component={AddBlogForm} />
           <Route path="/blog/edit/:id" exact component={AddBlogForm} />
@@ -77,8 +82,8 @@ const App = () => {
           <Route path="/testimonial" exact component={Testimonial} />
           <Route path="/testimonial/add" exact component={AddTestimonial} />
 
-          <Route path="/gallary" exact component={Gallery} />
-          <Route path="/gallary/add" exact component={AddGallary} />
+          <Route path="/gallery" exact component={Gallery} />
+          <Route path="/gallery/add" exact component={AddGallery} />
           <Route path="/home-showcase" exact component={Showcase} />
           <Route path="/home-showcase/add" exact component={AddShowcase} />
           <Route path="/colleges/:id/table" exact component={DynamicTables} />

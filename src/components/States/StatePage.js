@@ -3,29 +3,22 @@ import { useHistory } from "react-router-dom";
 import LoadingPage from "../utils/LoadingPage";
 import addIcon from "../../images/addIcon.svg";
 import searchIcon from "../../images/searchIcon.svg";
-import axios from "axios";
+import StatesTable from "./allstates/StatesTable";
 import "../../styles/EmployeePage.css";
-import {
-  deleteBlogs,
-  deleteGallaryImage,
-  getBlogs,
-  getGallaryImages,
-} from "../../redux/api";
-import AGTable from "./AllGallery/AGTable";
+import { deleteStates, getStates } from "../../redux/api";
 
-const Gallery = () => {
+const StatePage = () => {
   const history = useHistory();
-  const [allblogData, setallblogData] = useState([]);
+  const [allStateData, setAllStateData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInput, setsearchInput] = useState("");
   const [filterData, setfilterData] = useState([]);
 
-  const fetchblogList = async () => {
+  const fetchStatesList = async () => {
     setLoading(true);
     try {
-      const call1 = await getGallaryImages();
-      setallblogData(call1?.data?.data);
-      // setallblogData(call1.data.allBlogs)
+      const res = await getStates();
+      setAllStateData(res?.data?.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -34,13 +27,13 @@ const Gallery = () => {
   };
 
   useEffect(() => {
-    fetchblogList();
+    fetchStatesList();
   }, []);
 
   const searchItems = (searchValue) => {
     setsearchInput(searchValue);
     if (searchInput !== "") {
-      let filteredData = allblogData.filter((item) => {
+      let filteredData = allStateData.filter((item) => {
         return Object.values(item)
           .join("")
           .toLowerCase()
@@ -48,15 +41,15 @@ const Gallery = () => {
       });
       setfilterData(filteredData);
     } else {
-      setfilterData(allblogData);
+      setfilterData(allStateData);
     }
   };
 
-  const deleteBlog = async (id) => {
+  const deleteState = async (id) => {
     try {
-      const newarr = allblogData.filter((item) => item._id !== id);
-      setallblogData(newarr);
-      await deleteGallaryImage(id);
+      const newarr = allStateData.filter((item) => item._id !== id);
+      setAllStateData(newarr);
+      await deleteStates(id);
     } catch (error) {
       console.log(error);
     }
@@ -83,18 +76,18 @@ const Gallery = () => {
             <div className="employee-addEmployeeDiv">
               <button
                 className="employee-addBtn"
-                onClick={() => history.push("/gallery/add")}
+                onClick={() => history.push("/states/add")}
               >
                 <img src={addIcon} alt="add" className="employee-addIcon" />
-                <span>Add Gallery Image</span>
+                <span>Add States</span>
               </button>
             </div>
           </div>
           <div className="employee-tableSection">
             {searchInput.length > 1 ? (
-              <AGTable blogData={filterData} deleteBlog={deleteBlog} />
+              <StatesTable stateData={filterData} deleteState={deleteState} />
             ) : (
-              <AGTable blogData={allblogData} deleteBlog={deleteBlog} />
+              <StatesTable stateData={allStateData} deleteState={deleteState} />
             )}
           </div>
         </>
@@ -103,4 +96,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default StatePage;

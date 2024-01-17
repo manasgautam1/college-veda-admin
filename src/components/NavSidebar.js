@@ -337,18 +337,18 @@ const NavSidebar = (props) => {
             <ListItem
               button
               className={
-                props.location.pathname.includes("/gallary")
+                props.location.pathname.includes("/gallery")
                   ? classes.selectedList
                   : ""
               }
-              onClick={() => history.push("/gallary")}
+              onClick={() => history.push("/gallery")}
             >
               <ListItemIcon>
-                {props.location.pathname.includes("/gallary") ? (
+                {props.location.pathname.includes("/gallery") ? (
                   <img
                     src={userActive}
                     className={classes.iconColor}
-                    alt="Gallary"
+                    alt="Gallery"
                   />
                 ) : (
                   <img src={user} className={classes.iconColor} alt="users" />
@@ -401,6 +401,33 @@ const NavSidebar = (props) => {
                 )}
               </ListItemIcon>
               <ListItemText primary="Subpage" />
+            </ListItem>
+
+            <ListItem
+              button
+              className={
+                props.location.pathname.includes("/states")
+                  ? classes.selectedList
+                  : ""
+              }
+              onClick={() => history.push("/states")}
+            >
+              <ListItemIcon>
+                {props.location.pathname.includes("/states") ? (
+                  <img
+                    src={employeeActive}
+                    className={classes.iconColor}
+                    alt="employee"
+                  />
+                ) : (
+                  <img
+                    src={employee}
+                    className={classes.iconColor}
+                    alt="employee"
+                  />
+                )}
+              </ListItemIcon>
+              <ListItemText primary="States" />
             </ListItem>
             {/* <ListItem
               button

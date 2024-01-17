@@ -23,6 +23,14 @@ export const deleteBlogs = (id) => API.delete(`/blogs/${id}`);
 export const updateBlogs = (payload) =>
   API.put(`/blogs/${payload?._id}`, payload);
 
+//states
+export const getStates = () => API.get("/states");
+export const postState = (data) => API.post("/states", data);
+export const getStateById = (id) => API.get(`/states/${id}`);
+export const deleteStates = (id) => API.delete(`/states/${id}`);
+export const updateStates = (payload) =>
+  API.put(`/states/${payload?._id}`, payload);
+
 //university
 export const getUniversity = () => API.get("/universities");
 export const DeleteUniversity = (id) => API.delete(`/universities/${id}`);
@@ -60,10 +68,10 @@ export const deleteTestimonial = (id) => API.delete(`/testimonial/${id}`);
 export const UpdateReview = (payload) =>
   API.post(`/colleges/review/update/${payload?.courseid}`, payload);
 
-//gallary data
-export const PostGallaryImage = (payload) => API.post(`/gallary/add`, payload);
-export const getGallaryImages = () => API.get(`/gallary`);
-export const deleteGallaryImage = (id) => API.delete(`/gallary/${id}`);
+//gallery data
+export const PostGallaryImage = (payload) => API.post(`/showcase`, payload);
+export const getGallaryImages = () => API.get(`/showcase`);
+export const deleteGallaryImage = (id) => API.delete(`/showcase/${id}`);
 
 //showcase data
 export const PostShowCaseImage = (payload) =>
