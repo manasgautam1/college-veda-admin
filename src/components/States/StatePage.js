@@ -21,7 +21,6 @@ const StatePage = () => {
       setAllStateData(res?.data?.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -51,7 +50,7 @@ const StatePage = () => {
       setAllStateData(newarr);
       await deleteStates(id);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

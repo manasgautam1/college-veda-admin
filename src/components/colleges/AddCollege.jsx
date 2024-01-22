@@ -69,10 +69,9 @@ const AddCollege = () => {
         `https://api.cloudinary.com/v1_1/sinox-technology/image/upload`,
         formdata
       );
-      console.log(response);
       setuniversityData({ ...universityData, logo: response?.data?.url });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -85,10 +84,9 @@ const AddCollege = () => {
         `https://api.cloudinary.com/v1_1/sinox-technology/image/upload`,
         formdata
       );
-      console.log(response);
       setuniversityData({ ...universityData, coverpic: response?.data?.url });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -96,14 +94,12 @@ const AddCollege = () => {
     e.preventDefault();
 
     try {
-      // await axios.post("http://localhost:8080/admin/university/add", universityData);
       setloadingBtn(true);
       await postColleges(universityData);
       setloadingBtn(false);
       history.push("/colleges");
     } catch (err) {
       setloadingBtn(false);
-      console.log(err);
     }
   };
 
@@ -112,13 +108,11 @@ const AddCollege = () => {
     setloadingBtn(true);
 
     try {
-      // await axios.post("http://localhost:8080/admin/university/add", universityData);
       await updateCollege(universityData);
       history.push("/colleges");
       setloadingBtn(false);
     } catch (err) {
       setloadingBtn(false);
-      console.log(err);
     }
   };
 
@@ -131,13 +125,12 @@ const AddCollege = () => {
         `https://api.cloudinary.com/v1_1/sinox-technology/image/upload`,
         formdata
       );
-      console.log(response);
 
       let data = [...universityData.gallery];
       data[index] = response.data.url;
       setuniversityData({ ...universityData, gallery: data });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -162,7 +155,7 @@ const AddCollege = () => {
       const response = await getUniversity();
       setuniversityList(response?.data?.data);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
   useEffect(() => {
@@ -178,7 +171,6 @@ const AddCollege = () => {
       setuniversityData(response?.data?.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

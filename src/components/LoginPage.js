@@ -34,7 +34,6 @@ const LoginPage = () => {
         localStorage.setItem("eduvisor", JSON.stringify(data?.data));
         history.push("/universities");
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     } else {

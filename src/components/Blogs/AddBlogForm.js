@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import 'react-phone-number-input/style.css';
-import '../../styles/AddEmployeeForm.css';
-import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { getBlogById, postBlog, updateBlogs } from '../../redux/api';
-import LoadingPage from '../utils/LoadingPage';
-import LoadingComponent from '../utils/LoadingButton';
+import React, { useState, useEffect } from "react";
+import "react-phone-number-input/style.css";
+import "../../styles/AddEmployeeForm.css";
+import axios from "axios";
+import { useHistory, useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { getBlogById, postBlog, updateBlogs } from "../../redux/api";
+import LoadingPage from "../utils/LoadingPage";
+import LoadingComponent from "../utils/LoadingButton";
 
 const initialData = {
-  title: '',
-  author: '',
-  body: '',
+  title: "",
+  author: "",
+  body: "",
   blogPic: "",
 };
 
 const AddBlogForm = () => {
+  const { id } = useParams();
 
   const [blogData, setblogData] = useState(initialData);
   const [LoadingUi, setLoadingUi] = useState(false);
@@ -30,182 +31,190 @@ const AddBlogForm = () => {
 
   const handleinput2 = async (e) => {
     try {
-      const formdata = new FormData()
-      formdata.append("file", e.target.files[0])
-      formdata.append("upload_preset", 'eduvisor')
-      const response = await axios.post(`https://api.cloudinary.com/v1_1/sinox-technology/image/upload`, formdata)
-      console.log(response)
-      setblogData({ ...blogData, blogPic: response?.data?.url })
-
+      const formdata = new FormData();
+      formdata.append("file", e.target.files[0]);
+      formdata.append("upload_preset", "eduvisor");
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/sinox-technology/image/upload`,
+        formdata
+      );
+      setblogData({ ...blogData, blogPic: response?.data?.url });
     } catch (error) {
-      console.log(error)
+      alert(error);
     }
-  }
-
-
+  };
 
   AddBlogForm.formats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image', 'video'
-  ]
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
   AddBlogForm.modules = {
     toolbar: [
-      [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+      [{ header: "1" }, { header: "2" }, { font: [] }],
       [{ size: [] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' },
-      { 'indent': '-1' }, { 'indent': '+1' }],
-      ['link', 'image', 'video'],
-      ['clean']
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
     ],
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
-    }
-  }
+    },
+  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoadingButton(true)
-      await postBlog(blogData)
-      history.push('/blogs');
-      setLoadingButton(false)
+      setLoadingButton(true);
+      await postBlog(blogData);
+      history.push("/blogs");
+      setLoadingButton(false);
     } catch (error) {
-      setLoadingButton(false)
-      console.log(error);
+      setLoadingButton(false);
     }
-  }
-
-
-  // edit
-
-  const { id } = useParams()
+  };
 
   useEffect(() => {
-    blogById()
-  }, [])
+    blogById();
+  }, []);
 
   const blogById = async () => {
     try {
-      setLoadingUi(true)
-      const response = await getBlogById(id)
-      setblogData(response?.data?.data)
-      setLoadingUi(false)
+      setLoadingUi(true);
+      const response = await getBlogById(id);
+      setblogData(response?.data?.data);
+      setLoadingUi(false);
     } catch (error) {
-      setLoadingUi(false)
-      console.log(error)
+      setLoadingUi(false);
     }
-  }
+  };
 
   const handleUpdate = async () => {
     try {
-      setLoadingButton(true)
-      await updateBlogs(blogData)
-      history.push('/blogs')
-      setLoadingButton(false)
+      setLoadingButton(true);
+      await updateBlogs(blogData);
+      history.push("/blogs");
+      setLoadingButton(false);
     } catch (error) {
-      setLoadingButton(false)
-      console.log(error)
+      setLoadingButton(false);
     }
-  }
+  };
   return (
-    <div className='addEmployee-container'>
-      {
-        LoadingUi ? <LoadingPage /> :
-          <div className='addEmployee-personalDetails'>
-            <div className='addEmployee-alignRow'>
-              <div className='addEmployee-inputFieldDiv'>
-                <label className='addEmployee-inputLabel'>Title <span style={{ color: "red", fontSize: "1.2rem" }}>*</span> </label>
-                <input
-                  type='text'
-                  name='title'
-                  placeholder='Title'
-                  value={blogData?.title}
-                  className='addEmployee-inputField'
-                  id={blogData?.writerName?.length ? "" : "red-border"}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className='addEmployee-inputFieldDiv'>
-                <label className='addEmployee-inputLabel'>Author  </label>
-                <input
-                  type='text'
-                  id={blogData?.writerTagline?.length ? "" : "red-border"}
-                  name='author'
-                  placeholder='Author'
-                  value={blogData?.author}
-                  className='addEmployee-inputField'
-                  onChange={handleChange}
-                />
-              </div>
+    <div className="addEmployee-container">
+      {LoadingUi ? (
+        <LoadingPage />
+      ) : (
+        <div className="addEmployee-personalDetails">
+          <div className="addEmployee-alignRow">
+            <div className="addEmployee-inputFieldDiv">
+              <label className="addEmployee-inputLabel">
+                Title{" "}
+                <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
+              </label>
+              <input
+                type="text"
+                name="title"
+                placeholder="Title"
+                value={blogData?.title}
+                className="addEmployee-inputField"
+                id={blogData?.writerName?.length ? "" : "red-border"}
+                onChange={handleChange}
+              />
             </div>
-            <div className='addEmployee-alignRow'>
-
-              <div className='addEmployee-inputFieldDiv w-100'>
-                <label className='addEmployee-inputLabel'>Blog Pic</label>
-                <input
-                  type='file'
-                  name='blogPic'
-                  placeholder='Blog Pic'
-                  className='addEmployee-inputField'
-                  onChange={handleinput2}
-                />
-              </div>
-
-            </div>
-            {
-              !!blogData?.blogPic && <img src={blogData?.blogPic} height={100} className='mt-3' width={100} alt="blog-pic" />
-            }
-
-
-            <div className='addEmployee-alignRow'>
-              <div style={{ marginTop: "20px", width: "100%" }}>
-                <label className='addEmployee-inputLabel'>Body <span style={{ color: "red", fontSize: "1.2rem" }}>*</span> </label>
-                <ReactQuill
-                  id={blogData?.body?.length ? "" : "red-border"}
-                  modules={AddBlogForm.modules}
-                  formats={AddBlogForm.formats}
-                  value={blogData?.body}
-                  theme="snow"
-                  onChange={(content, delta, source, editor) => { setblogData({ ...blogData, body: editor.getHTML() }) }} />
-              </div>
-            </div>
-
-            <div className='addEmployee-submitDetailDiv'>
-              {
-                !!id ? <button
-                  className='addEmployee-submitDetailBtn'
-                  onClick={handleUpdate}
-
-                >
-                  Update
-                  {
-                    LoadingButton &&
-                    <LoadingComponent />
-                  }
-                </button> :
-                  <button
-                    className='addEmployee-submitDetailBtn'
-                    onClick={handlesubmit}
-                  >
-                    Submit
-                    {
-                      LoadingButton &&
-                      <LoadingComponent />
-                    }
-                  </button>
-              }
+            <div className="addEmployee-inputFieldDiv">
+              <label className="addEmployee-inputLabel">Author </label>
+              <input
+                type="text"
+                id={blogData?.writerTagline?.length ? "" : "red-border"}
+                name="author"
+                placeholder="Author"
+                value={blogData?.author}
+                className="addEmployee-inputField"
+                onChange={handleChange}
+              />
             </div>
           </div>
-      }
+          <div className="addEmployee-alignRow">
+            <div className="addEmployee-inputFieldDiv w-100">
+              <label className="addEmployee-inputLabel">Blog Pic</label>
+              <input
+                type="file"
+                name="blogPic"
+                placeholder="Blog Pic"
+                className="addEmployee-inputField"
+                onChange={handleinput2}
+              />
+            </div>
+          </div>
+          {!!blogData?.blogPic && (
+            <img
+              src={blogData?.blogPic}
+              height={100}
+              className="mt-3"
+              width={100}
+              alt="blog-pic"
+            />
+          )}
+
+          <div className="addEmployee-alignRow">
+            <div style={{ marginTop: "20px", width: "100%" }}>
+              <label className="addEmployee-inputLabel">
+                Body <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
+              </label>
+              <ReactQuill
+                id={blogData?.body?.length ? "" : "red-border"}
+                modules={AddBlogForm.modules}
+                formats={AddBlogForm.formats}
+                value={blogData?.body}
+                theme="snow"
+                onChange={(content, delta, source, editor) => {
+                  setblogData({ ...blogData, body: editor.getHTML() });
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="addEmployee-submitDetailDiv">
+            {!!id ? (
+              <button
+                className="addEmployee-submitDetailBtn"
+                onClick={handleUpdate}
+              >
+                Update
+                {LoadingButton && <LoadingComponent />}
+              </button>
+            ) : (
+              <button
+                className="addEmployee-submitDetailBtn"
+                onClick={handlesubmit}
+              >
+                Submit
+                {LoadingButton && <LoadingComponent />}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
-
-
 
 export default AddBlogForm;

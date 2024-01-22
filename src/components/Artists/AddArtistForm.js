@@ -53,10 +53,9 @@ const AddArtistForm = () => {
         `https://api.cloudinary.com/v1_1/sinox-technology/image/upload`,
         formdata
       );
-      console.log(response);
       setuniversityData({ ...universityData, logo: response?.data?.url });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -78,10 +77,9 @@ const AddArtistForm = () => {
       /v1_1/sinox-technology/image/upload`,
         formdata
       );
-      console.log(response);
       setuniversityData({ ...universityData, coverpic: response?.data?.url });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -97,7 +95,6 @@ const AddArtistForm = () => {
       setloadingButton(false);
     } catch (err) {
       setloadingButton(false);
-      console.log(err);
     }
   };
 
@@ -110,7 +107,6 @@ const AddArtistForm = () => {
       setloadingButton(false);
     } catch (err) {
       setloadingButton(false);
-      console.log(err);
     }
   };
 
@@ -123,13 +119,12 @@ const AddArtistForm = () => {
         `https://api.cloudinary.com/v1_1/sinox-technology/image/upload`,
         formdata
       );
-      console.log(response);
 
       let data = [...universityData.gallery];
       data[index] = response.data.url;
       setuniversityData({ ...universityData, gallery: data });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -158,7 +153,6 @@ const AddArtistForm = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   };
   useEffect(() => {

@@ -21,7 +21,6 @@ const Showcase = () => {
       setshowcaseData(res?.data?.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -51,7 +50,7 @@ const Showcase = () => {
       setshowcaseData(newarr);
       await deleteShowcaseImages(id);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

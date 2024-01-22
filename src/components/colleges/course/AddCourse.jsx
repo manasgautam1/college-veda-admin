@@ -47,7 +47,6 @@ const AddCourse = () => {
       history.push(`/colleges/${id}/course`);
     } catch (err) {
       setloadingButton(false);
-      console.log(err);
     }
   };
 

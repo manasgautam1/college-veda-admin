@@ -3,14 +3,8 @@ import { useHistory } from "react-router-dom";
 import LoadingPage from "../utils/LoadingPage";
 import addIcon from "../../images/addIcon.svg";
 import searchIcon from "../../images/searchIcon.svg";
-import axios from "axios";
 import "../../styles/EmployeePage.css";
-import {
-  deleteBlogs,
-  deleteGallaryImage,
-  getBlogs,
-  getGallaryImages,
-} from "../../redux/api";
+import { deleteGallaryImage, getGallaryImages } from "../../redux/api";
 import AGTable from "./AllGallery/AGTable";
 
 const Gallery = () => {
@@ -23,12 +17,10 @@ const Gallery = () => {
   const fetchblogList = async () => {
     setLoading(true);
     try {
-      const call1 = await getGallaryImages();
-      setallblogData(call1?.data?.data);
-      // setallblogData(call1.data.allBlogs)
+      const res = await getGallaryImages();
+      setallblogData(res?.data?.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -58,7 +50,7 @@ const Gallery = () => {
       setallblogData(newarr);
       await deleteGallaryImage(id);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

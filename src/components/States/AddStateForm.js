@@ -40,7 +40,7 @@ const AddStateForm = () => {
       );
       setStateData({ ...stateData, coverImage: response?.data?.url });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -53,7 +53,6 @@ const AddStateForm = () => {
       setLoadingButton(false);
     } catch (error) {
       setLoadingButton(false);
-      console.log(error);
     }
   };
 
@@ -65,7 +64,6 @@ const AddStateForm = () => {
       setLoadingUi(false);
     } catch (error) {
       setLoadingUi(false);
-      console.log(error);
     }
   };
 
@@ -77,7 +75,6 @@ const AddStateForm = () => {
       setLoadingButton(false);
     } catch (error) {
       setLoadingButton(false);
-      console.log(error);
     }
   };
   return (

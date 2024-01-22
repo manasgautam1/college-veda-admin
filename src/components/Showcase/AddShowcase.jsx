@@ -47,7 +47,7 @@ const AddShowcaseForm = () => {
       );
       setShowcaseData({ ...showcaseData, image: response?.data?.url });
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -60,7 +60,6 @@ const AddShowcaseForm = () => {
       setLoadingButton(false);
     } catch (error) {
       setLoadingButton(false);
-      console.log(error);
     }
   };
 
@@ -73,7 +72,6 @@ const AddShowcaseForm = () => {
         setLoadingUi(false);
       } catch (error) {
         setLoadingUi(false);
-        console.log(error);
       }
     }
   };
@@ -86,7 +84,6 @@ const AddShowcaseForm = () => {
       setLoadingButton(false);
     } catch (error) {
       setLoadingButton(false);
-      console.log(error);
     }
   };
   return (

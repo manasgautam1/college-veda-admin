@@ -1,15 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import addIcon from "../../images/addIcon.svg";
-import axios from "axios";
-import filterIcon from "../../images/filterIcon.svg";
 import searchIcon from "../../images/searchIcon.svg";
 import LoadingPage from "../utils/LoadingPage";
-import {
-  deleteCollege as DeleteCollege,
-  getColleges,
-  getUniversity,
-} from "../../redux/api";
+import { deleteCollege as DeleteCollege, getColleges } from "../../redux/api";
 
 import "../../styles/ArtistPage.css";
 import CollegeTable from "./CTable/CollegeTable";
@@ -25,13 +19,11 @@ const College = () => {
     setLoading(true);
 
     try {
-      // const call1 = await axios.get("https://flywise-admin.herokuapp.com/api/allUni");
       const response = await getColleges();
       setuniversityData(response?.data?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
     }
   };
 
@@ -59,7 +51,7 @@ const College = () => {
       setuniversityData(newarr);
       await DeleteCollege(id);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

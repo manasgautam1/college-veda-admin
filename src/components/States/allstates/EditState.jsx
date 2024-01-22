@@ -64,7 +64,7 @@ function EditState() {
       );
       history.push("/blogs");
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 

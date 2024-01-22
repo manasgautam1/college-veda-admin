@@ -59,10 +59,9 @@ export const getUsers = () => API.get("/users");
 export const getEnquiry = () => API.get("/enquiry");
 
 //testimonial
-export const PostTestimonial = (payload) =>
-  API.post(`/testimonial/add`, payload);
-export const getTestimonial = () => API.get("/testimonial");
-export const deleteTestimonial = (id) => API.delete(`/testimonial/${id}`);
+export const PostTestimonial = (payload) => API.post(`/testimonials`, payload);
+export const getTestimonial = () => API.get("/testimonials");
+export const deleteTestimonial = (id) => API.delete(`/testimonials/${id}`);
 
 // update reveiw
 export const UpdateReview = (payload) =>

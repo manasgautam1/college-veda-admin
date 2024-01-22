@@ -1,64 +1,63 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from "react";
 // import printIcon from '../../images/printIcon.svg';
-import filterIcon from '../../images/filterIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
-import UsersTable from './UsersTable';
-import axios from 'axios';
-import '../../styles/UserPage.css';
-import LoadingPage from '../utils/LoadingPage';
-import { getUsers } from '../../redux/api';
+import filterIcon from "../../images/filterIcon.svg";
+import searchIcon from "../../images/searchIcon.svg";
+import UsersTable from "./UsersTable";
+import axios from "axios";
+import "../../styles/UserPage.css";
+import LoadingPage from "../utils/LoadingPage";
+import { getUsers } from "../../redux/api";
 
 const UserPage = () => {
   const [allUsers, setAllUsers] = useState([]);
-  const [searchInput, setsearchInput] = useState('');
+  const [searchInput, setsearchInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [filterData, setfilterData] = useState([])
+  const [filterData, setfilterData] = useState([]);
 
   const fetchUserList = async () => {
     setLoading(true);
     try {
-      const userData = await getUsers()
+      const userData = await getUsers();
       setAllUsers(userData.data.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
-
-
-
 
   useEffect(() => {
     fetchUserList();
   }, []);
 
   const searchItems = (searchValue) => {
-    setsearchInput(searchValue)
-    if (searchInput !== '') {
+    setsearchInput(searchValue);
+    if (searchInput !== "") {
       let filteredData = allUsers.filter((item) => {
-        return Object.values(item).join('').toLowerCase().includes(searchValue.toLowerCase())
-      })
-      setfilterData(filteredData)
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchValue.toLowerCase());
+      });
+      setfilterData(filteredData);
     } else {
-      setfilterData(allUsers)
+      setfilterData(allUsers);
     }
-  }
+  };
 
   return (
-    <div className='user-container'>
+    <div className="user-container">
       {loading ? (
         <LoadingPage />
       ) : (
         <Fragment>
-          <div className='user-firstSection'>
-            <div className='user-searchDiv'>
-              <img src={searchIcon} alt='search' className='searchIcon' />
+          <div className="user-firstSection">
+            <div className="user-searchDiv">
+              <img src={searchIcon} alt="search" className="searchIcon" />
               <input
-                type='text'
-                placeholder='Enter A Name'
-                className='artist-searchInput'
-                id='searchInput'
+                type="text"
+                placeholder="Enter A Name"
+                className="artist-searchInput"
+                id="searchInput"
                 value={searchInput}
                 onChange={(e) => searchItems(e.target.value)}
               />
@@ -70,13 +69,12 @@ const UserPage = () => {
               </button>
             </div> */}
           </div>
-          <div className='user-tableSection'>
-            {(searchInput.length > 1) ? (
+          <div className="user-tableSection">
+            {searchInput.length > 1 ? (
               <UsersTable Users={filterData} />
             ) : (
               <UsersTable Users={allUsers} />
-            )
-            }
+            )}
           </div>
         </Fragment>
       )}
