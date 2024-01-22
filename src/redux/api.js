@@ -69,15 +69,17 @@ export const UpdateReview = (payload) =>
   API.post(`/colleges/review/update/${payload?.courseid}`, payload);
 
 //gallery data
-export const PostGallaryImage = (payload) => API.post(`/showcase`, payload);
-export const getGallaryImages = () => API.get(`/showcase`);
-export const deleteGallaryImage = (id) => API.delete(`/showcase/${id}`);
+export const PostGallaryImage = (payload) => API.post(`/gallery`, payload);
+export const getGallaryImages = () => API.get(`/gallery`);
+export const deleteGallaryImage = (id) => API.delete(`/gallery/${id}`);
 
 //showcase data
-export const PostShowCaseImage = (payload) =>
-  API.post(`/showcase/add`, payload);
+export const postShowCaseImage = (payload) => API.post(`/showcase`, payload);
 export const getShowcaseImages = () => API.get(`/showcase`);
+export const getShowcaseImageById = (id) => API.get(`/showcase/${id}`);
 export const deleteShowcaseImages = (id) => API.delete(`/showcase/${id}`);
+export const updateShowcaseImages = (payload) =>
+  API.put(`/showcase/${payload._id}`, payload);
 
 // table
 export const PostDyanmicTable = (payload) =>

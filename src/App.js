@@ -25,13 +25,13 @@ import Review from "./components/colleges/Review/Review";
 import Gallery from "./components/Gallery/Gallery";
 import AddGallery from "./components/Gallery/AddGallery";
 import Showcase from "./components/Showcase/Showcase";
-import AddShowcase from "./components/Showcase/AddShowcase";
 import DynamicTables from "./components/DynamicTables/DynamicTablex";
 import AddDynamicTable from "./components/DynamicTables/AddDynamicTable";
 import Subpage from "./components/Subpage/Subpage";
 import AddSubpage from "./components/Subpage/AddSubpage";
 import StatePage from "./components/States/StatePage";
 import AddStateForm from "./components/States/AddStateForm";
+import AddShowcaseForm from "./components/Showcase/AddShowcase";
 
 export const history = createHistory();
 const App = () => {
@@ -82,10 +82,15 @@ const App = () => {
           <Route path="/testimonial" exact component={Testimonial} />
           <Route path="/testimonial/add" exact component={AddTestimonial} />
 
-          <Route path="/gallery" exact component={Gallery} />
-          <Route path="/gallery/add" exact component={AddGallery} />
+          {/* <Route path="/gallery" exact component={Gallery} />
+          <Route path="/gallery/add" exact component={AddGallery} /> */}
           <Route path="/home-showcase" exact component={Showcase} />
-          <Route path="/home-showcase/add" exact component={AddShowcase} />
+          <Route path="/home-showcase/add" exact component={AddShowcaseForm} />
+          <Route
+            path="/home-showcase/edit/:id"
+            exact
+            component={AddShowcaseForm}
+          />
           <Route path="/colleges/:id/table" exact component={DynamicTables} />
           <Route
             path="/colleges/:id/table/add"

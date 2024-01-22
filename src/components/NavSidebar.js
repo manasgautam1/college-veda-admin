@@ -334,7 +334,7 @@ const NavSidebar = (props) => {
               </ListItemIcon>
               <ListItemText primary='Payments ' />
             </ListItem> */}
-            <ListItem
+            {/* <ListItem
               button
               className={
                 props.location.pathname.includes("/gallery")
@@ -355,7 +355,7 @@ const NavSidebar = (props) => {
                 )}
               </ListItemIcon>
               <ListItemText primary="Gallery" />
-            </ListItem>
+            </ListItem> */}
 
             <ListItem
               button

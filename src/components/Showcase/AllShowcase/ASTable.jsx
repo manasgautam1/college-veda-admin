@@ -1,35 +1,34 @@
-import React from 'react';
-import '../../../styles/ArtistsTable.css';
-import SingleAsRow from './SingleAsRow';
+import React from "react";
+import "../../../styles/ArtistsTable.css";
+import SingleAsRow from "./SingleAsRow";
 
 const ASTable = (prop) => {
-
   return (
-    <div className='table-wrapper' id='#scrollBar'>
-
-      <table className='fl-table'>
+    <div className="table-wrapper" id="#scrollBar">
+      <table className="fl-table">
         <thead>
           <tr>
             <th>S no.</th>
-            <th>Sequence</th>
+            <th>Title</th>
+            <th>Sub-title</th>
             <th>Image</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {
-            prop?.blogData?.map((blog, ind) => {
-              return <SingleAsRow
+          {prop?.showcaseData?.map((showcaseData, ind) => {
+            return (
+              <SingleAsRow
                 key={ind}
                 index={ind}
-                id={blog._id}
-                deleteBlog={prop.deleteBlog}
-                sequence={blog.sequence}
-                image={blog.image}
+                id={showcaseData._id}
+                deleteShowcase={prop.deleteShowcase}
+                title={showcaseData.title}
+                subtitle={showcaseData.subtitle}
+                image={showcaseData.image}
               />
-
-            })
-          }
+            );
+          })}
         </tbody>
       </table>
     </div>
