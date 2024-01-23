@@ -1,13 +1,11 @@
-import React from 'react';
-import '../../../styles/ArtistsTable.css';
-import OneTtable from './OneTtable';
+import React from "react";
+import "../../../styles/ArtistsTable.css";
+import OneTtable from "./OneTtable";
 
 const Ttable = (prop) => {
-
   return (
-    <div className='table-wrapper' id='#scrollBar'>
-
-      <table className='fl-table'>
+    <div className="table-wrapper" id="#scrollBar">
+      <table className="fl-table">
         <thead>
           <tr>
             <th>S no.</th>
@@ -19,26 +17,24 @@ const Ttable = (prop) => {
           </tr>
         </thead>
         <tbody>
-          {
-            prop?.blogData?.map((blog, ind) => {
-              return <OneTtable
+          {prop?.testimonialData?.map((testimonial, ind) => {
+            return (
+              <OneTtable
                 key={ind}
                 index={ind}
-                id={blog._id}
-                body={blog.body}
-                deleteBlog={prop.deleteBlog}
-                author={blog.message}
-                title={blog.name}
-                position={blog.position}
-                date={blog.createdAt}
-                blogPic={blog.photo}
+                id={testimonial._id}
+                deleteTestimonial={prop.deleteTestimonial}
+                message={testimonial.message}
+                name={testimonial.name}
+                position={testimonial.position}
+                date={testimonial.createdAt}
+                photo={testimonial.photo}
               />
-
-            })
-          }
+            );
+          })}
         </tbody>
       </table>
-    </div >
+    </div>
   );
 };
 

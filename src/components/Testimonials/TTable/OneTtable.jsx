@@ -8,24 +8,26 @@ function OneTtable(prop) {
     <>
       <tr>
         <td>{prop?.index + 1}</td>
-        <td>{prop?.title}</td>
+        <td>{prop?.name}</td>
         <td>{prop?.position}</td>
         <td>
-          <img src={prop?.blogPic} alt="blog" height={30} width={30} />
+          <img src={prop?.photo} alt="blog" height={30} width={30} />
         </td>
-        <td>{prop?.author}</td>
+        <td style={{ maxWidth: "300px", overflow: "hidden" }}>
+          {prop?.message}
+        </td>
         <td className="text-right">
           <div
             className="actions"
             style={{ display: "flex", justifyContent: "space-betweens" }}
           >
-            <Link to={`/blog/edit/${prop.id}`}>
+            <Link to={`/testimonial/edit/${prop.id}`}>
               {" "}
               <button className="uni-edit-btn">
                 <ModeEditIcon />{" "}
               </button>
             </Link>
-            <Link onClick={() => prop?.deleteBlog(prop?.id)} to={"#"}>
+            <Link onClick={() => prop?.deleteTestimonial(prop?.id)} to={"#"}>
               <button className="uni-delete-btn">
                 <DeleteIcon />{" "}
               </button>

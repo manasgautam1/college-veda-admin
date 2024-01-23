@@ -81,6 +81,11 @@ const App = () => {
           <Route path="/users/:id" exact component={ViewSingleUser} />
           <Route path="/testimonial" exact component={Testimonial} />
           <Route path="/testimonial/add" exact component={AddTestimonial} />
+          <Route
+            path="/testimonial/edit/:id"
+            exact
+            component={AddTestimonial}
+          />
 
           {/* <Route path="/gallery" exact component={Gallery} />
           <Route path="/gallery/add" exact component={AddGallery} /> */}

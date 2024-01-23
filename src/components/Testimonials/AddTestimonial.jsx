@@ -3,13 +3,11 @@ import "react-phone-number-input/style.css";
 import "../../styles/AddEmployeeForm.css";
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import {
-  PostTestimonial,
-  getBlogById,
-  postBlog,
-  updateBlogs,
+  postTestimonial,
+  getTestimonialById,
+  updateTestimonial,
 } from "../../redux/api";
 import LoadingPage from "../utils/LoadingPage";
 import LoadingComponent from "../utils/LoadingButton";
@@ -53,7 +51,7 @@ const AddTestimonial = () => {
     e.preventDefault();
     try {
       setLoadingButton(true);
-      await PostTestimonial(testimonialData);
+      await postTestimonial(testimonialData);
       history.push("/testimonial");
       setLoadingButton(false);
     } catch (error) {
@@ -66,20 +64,22 @@ const AddTestimonial = () => {
   }, []);
 
   const blogById = async () => {
-    try {
-      setLoadingUi(true);
-      const response = await getBlogById(id);
-      settestimonialData(response?.data?.data);
-      setLoadingUi(false);
-    } catch (error) {
-      setLoadingUi(false);
+    if (!!id) {
+      try {
+        setLoadingUi(true);
+        const response = await getTestimonialById(id);
+        settestimonialData(response?.data?.data);
+        setLoadingUi(false);
+      } catch (error) {
+        setLoadingUi(false);
+      }
     }
   };
 
   const handleUpdate = async () => {
     try {
       setLoadingButton(true);
-      await updateBlogs(testimonialData);
+      await updateTestimonial(testimonialData);
       history.push("/testimonial");
       setLoadingButton(false);
     } catch (error) {
@@ -107,7 +107,10 @@ const AddTestimonial = () => {
               />
             </div>
             <div className="addEmployee-inputFieldDiv">
-              <label className="addEmployee-inputLabel">Position </label>
+              <label className="addEmployee-inputLabel">
+                Position{" "}
+                <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
+              </label>
               <input
                 type="text"
                 name="position"
@@ -120,7 +123,10 @@ const AddTestimonial = () => {
           </div>
           <div className="addEmployee-alignRow">
             <div className="addEmployee-inputFieldDiv w-100">
-              <label className="addEmployee-inputLabel">Photo</label>
+              <label className="addEmployee-inputLabel">
+                Photo{" "}
+                <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
+              </label>
               <input
                 type="file"
                 name="photo"
@@ -130,9 +136,9 @@ const AddTestimonial = () => {
               />
             </div>
           </div>
-          {!!testimonialData?.blogPic && (
+          {!!testimonialData?.photo && (
             <img
-              src={testimonialData?.blogPic}
+              src={testimonialData?.photo}
               height={100}
               className="mt-3"
               width={100}
@@ -146,13 +152,13 @@ const AddTestimonial = () => {
                 Message{" "}
                 <span style={{ color: "red", fontSize: "1.2rem" }}>*</span>{" "}
               </label>
-              <input
-                type="text"
+              <textarea
                 name="message"
                 placeholder="Message"
                 value={testimonialData?.message}
                 className="addEmployee-inputField"
                 onChange={handleChange}
+                rows={3}
               />
             </div>
           </div>

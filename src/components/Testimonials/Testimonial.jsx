@@ -4,7 +4,10 @@ import LoadingPage from "../utils/LoadingPage";
 import addIcon from "../../images/addIcon.svg";
 import searchIcon from "../../images/searchIcon.svg";
 import "../../styles/EmployeePage.css";
-import { deleteTestimonial, getTestimonial } from "../../redux/api";
+import {
+  deleteTestimonial as DeleteTestimonial,
+  getTestimonial,
+} from "../../redux/api";
 import Ttable from "./TTable/Ttable";
 
 const Testimonial = () => {
@@ -44,11 +47,11 @@ const Testimonial = () => {
     }
   };
 
-  const deleteBlog = async (id) => {
+  const deleteTestimonial = async (id) => {
     try {
       const newarr = allblogData.filter((item) => item._id !== id);
       setallblogData(newarr);
-      await deleteTestimonial(id);
+      await DeleteTestimonial(id);
     } catch (error) {
       alert(error);
     }
@@ -84,9 +87,15 @@ const Testimonial = () => {
           </div>
           <div className="employee-tableSection">
             {searchInput.length > 1 ? (
-              <Ttable blogData={filterData} deleteBlog={deleteBlog} />
+              <Ttable
+                testimonialData={filterData}
+                deleteTestimonial={deleteTestimonial}
+              />
             ) : (
-              <Ttable blogData={allblogData} deleteBlog={deleteBlog} />
+              <Ttable
+                testimonialData={allblogData}
+                deleteTestimonial={deleteTestimonial}
+              />
             )}
           </div>
         </>
