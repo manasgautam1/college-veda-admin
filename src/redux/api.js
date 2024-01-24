@@ -56,7 +56,7 @@ export const deleteCourse = (payload) =>
 // users
 export const getUsers = () => API.get("/users");
 //enquiry
-export const getEnquiry = () => API.get("/enquiry");
+export const getEnquiry = () => API.get("/contact");
 
 //testimonial
 export const getTestimonial = () => API.get("/testimonials");
