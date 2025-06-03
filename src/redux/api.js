@@ -34,6 +34,7 @@ export const updateStates = (payload) =>
 //university
 export const getUniversity = () => API.get("/universities");
 export const DeleteUniversity = (id) => API.delete(`/universities/${id}`);
+export const postUniversity = (data) => API.post("/universities", data);
 export const getUniversityById = (id) => API.get(`/universities/${id}`);
 export const updateUniversity = (payload) =>
   API.put(`/universities/${payload?._id}`, payload);

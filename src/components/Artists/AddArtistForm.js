@@ -7,7 +7,11 @@ import AlertTitle from "@mui/material/AlertTitle";
 import LoadingPage from "../utils/LoadingPage";
 // import { Country, State, City } from 'country-state-city';
 import Country from "../utils/Country.json";
-import { getUniversityById, updateUniversity } from "../../redux/api";
+import {
+  getUniversityById,
+  postUniversity,
+  updateUniversity,
+} from "../../redux/api";
 import ReactQuill from "react-quill";
 const initialState = {
   fullName: "",
@@ -87,10 +91,7 @@ const AddArtistForm = () => {
     e.preventDefault();
     setloadingButton(true);
     try {
-      await axios.post(
-        "http://localhost:8080/admin/university/add",
-        universityData
-      );
+      await postUniversity(universityData);
       history.push("/Universities");
       setloadingButton(false);
     } catch (err) {
